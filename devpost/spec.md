@@ -147,6 +147,8 @@ Chrome APIs supply tab handling and transient request storage. PDF.js is an Apac
 
 ## Important Failure Modes
 
+Session probe implementation: after an access failure only, GET https://utah.instructure.com/api/v1/users/self/profile with existing session credentials. Inspect HTTP status only; do not parse, persist or log profile data. A 401 confirms unauthenticated API access; 403/network/unknown responses remain ordinary access failures and do not automatically refresh a tab. Endpoint docs: https://developerdocs.instructure.com/services/canvas/resources/users#get-user-profile
+
 - Institution-specific auth/redirect restrictions: investigate before UI polish. Do not promise they are resolved. A materially broader permission or token-based approach needs an explained plan revision.
 - Canvas DOM/link changes or uncertain file type: use verified metadata/link forms and avoid intercepting unrelated content. Record any unsupported required entry point as incomplete, not a silent success.
 - PDF fetch/render or network failure: explanatory viewer state, Retry and Back to Canvas; never automatic download.

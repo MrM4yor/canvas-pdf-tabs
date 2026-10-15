@@ -25,10 +25,17 @@ async function route(message, sender) {
     throw new Error('This reading session is no longer available. Open the PDF from Canvas again.');
   }
   if (message.type === 'GET_REQUEST') return { ok: true, descriptor };
-  if (message.type === 'BACK_TO_CANVAS') {
+  if (message.type === 'BACK_TO_CANVAS' || message.type === 'SESSION_EXPIRED') {
     const tab = await chrome.tabs.get(descriptor.sourceTabId).catch(() => null);
-    if (tab && canvasUrl(tab.url)) await chrome.tabs.update(tab.id, { active: true });
-    else await chrome.tabs.create({ url: canvasUrl(descriptor.sourceCanvasUrl)?.href || CANVAS, active: true });
+    if (tab && canvasUrl(tab.url)) {
+      await chrome.tabs.update(tab.id, { active: true });
+      if (message.type === 'SESSION_EXPIRED' && !descriptor.loginReturned) {
+        await chrome.storage.session.set({ [key(message.requestId)]: { ...descriptor, loginReturned: true } });
+        await chrome.tabs.reload(tab.id);
+      }
+    } else if (message.type === 'BACK_TO_CANVAS') {
+      await chrome.tabs.create({ url: canvasUrl(descriptor.sourceCanvasUrl)?.href || CANVAS, active: true });
+    }
     return { ok: true };
   }
   throw new Error('Unknown viewer request.');

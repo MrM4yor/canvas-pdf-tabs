@@ -9,7 +9,7 @@ Build mode: learn
 
 Git: learner approved initialization and slice checkpoints. Existing ignore rules exclude the learner profile and local credentials. Slice 1 committed as 8f59ed9 after learner verification. Project-local author identity configured with learner-provided details.
 
-Current progress: learner confirmed all reader controls, 100% initial zoom, and corrected search/link overlay alignment. Slice 2 verified; proceeding to themes, intentional Download and recovery. Fourteen automated tests pass.
+Current progress: learner confirmed the complete reader, themes and Download work as intended. Slice 3 verified; learner explicitly requested the previously deferred local bookmarks/page notes as an additional slice. Final review and learning wrap-up remain pending.
 
 ## Slices
 
@@ -33,7 +33,7 @@ Current progress: learner confirmed all reader controls, 100% initial zoom, and 
   Learner check: On a coursework PDF, zoom with the touchpad and buttons, reset with Ctrl+0, jump pages, change layouts, search and follow a link. Compare the reading experience with the agreed Acrobat reference.
   Commit: `Add PDF reading and navigation controls`
 
-- [ ] **3. Finish themes, intentional download and recovery**
+- [x] **3. Finish themes, intentional download and recovery**
   Becomes usable: The reader supports light/dark/system appearance, explicitly downloading the original, and useful recovery from login/file/network failures.
   Why now: Completes the end-to-end product after access and reading are established.
   PRD ref: `prd.md > Theme and Explicit Download`, `prd.md > States and Boundaries`, `prd.md > Look and Feel`

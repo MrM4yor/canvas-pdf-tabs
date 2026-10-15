@@ -14,6 +14,8 @@
       <select id="fitMode" aria-label="Page fitting"><option value="custom">Custom zoom</option><option value="page-width">Fit width</option><option value="page-fit">Fit page</option><option value="100">100%</option></select>
       <button id="findButton" title="Find text (Ctrl+F)">Find</button>
     </fieldset>
+    <button id="download" disabled title="Download the original PDF">Download</button>
+    <select id="theme" aria-label="Viewer theme"><option value="system">System theme</option><option value="light">Light</option><option value="dark">Dark</option></select>
   </header>
   <section id="findBar" hidden aria-label="Find in document"><input id="findInput" type="search" placeholder="Find in document" aria-label="Search PDF text"><output id="findCount" role="status"></output><button id="findPrevious" aria-label="Previous match">↑</button><button id="findNext" aria-label="Next match">↓</button><button id="closeFind" aria-label="Close search">×</button></section>
   <section id="status" role="status">Opening your Canvas PDF…</section>
