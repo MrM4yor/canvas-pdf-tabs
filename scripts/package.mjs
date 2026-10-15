@@ -1,4 +1,4 @@
-import {cp,mkdir,mkdtemp,readFile,stat} from 'node:fs/promises';
+import {cp,mkdir,mkdtemp,readFile,readdir,stat} from 'node:fs/promises';
 import {resolve} from 'node:path';
 import {execFileSync} from 'node:child_process';
 const root=resolve(import.meta.dirname,'..');
@@ -13,5 +13,9 @@ for(const name of ['build','web','cmaps','standard_fonts','wasm','LICENSE'])awai
 const target=resolve(root,'release',`canvas-pdf-tabs-${version}.zip`);
 try{await stat(target);throw Error('Release ZIP already exists. Preserve it or choose a new version before packaging again.');}catch(error){if(error.code!=='ENOENT')throw error;}
 // Windows ships bsdtar; ZIP format is selected explicitly without shell interpolation.
-execFileSync('tar.exe',['--format=zip','-cf',target,'-C',stage,'.'],{stdio:'inherit'});
+// Pass root entries explicitly: archiving "." prefixes manifest.json with "./",
+// which the Chrome Web Store uploader does not recognize as a root manifest.
+execFileSync('tar.exe',['--format=zip','-cf',target,'-C',stage,...(await readdir(stage)).sort()],{stdio:'inherit'});
+const entries=execFileSync('tar.exe',['-tf',target],{encoding:'utf8'}).trim().split(/\r?\n/);
+if(!entries.includes('manifest.json')||entries.some(name=>name.startsWith('./')||name.includes('\\')))throw Error('Invalid ZIP root paths.');
 console.log(`Packaged ${target}`);
