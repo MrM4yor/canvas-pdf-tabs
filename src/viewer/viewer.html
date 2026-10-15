@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Canvas PDF Tabs</title>
+  <link rel="stylesheet" href="../../vendor/pdfjs/web/pdf_viewer.css">
+  <link rel="stylesheet" href="viewer.css">
+</head>
+<body>
+  <header><strong id="filename">Canvas PDF Tabs</strong><span id="pageCount"></span><span class="badge">Access test · step 1</span></header>
+  <section id="status" role="status">Opening your Canvas PDF…</section>
+  <section id="error" hidden role="alert"><h1>Unable to open this PDF</h1><p id="errorText"></p><button id="retry">Retry</button> <button id="back">Back to Canvas</button></section>
+  <div id="viewerContainer" role="main" tabindex="0" aria-label="PDF document"><div id="viewer" class="pdfViewer"></div></div>
+  <script type="module" src="bootstrap.js"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "Canvas PDF Tabs",
+  "version": "0.1.0",
+  "description": "Read University of Utah Canvas PDFs in separate tabs without automatic downloads.",
+  "permissions": ["storage"],
+  "host_permissions": ["https://utah.instructure.com/*"],
+  "background": { "service_worker": "src/background.js", "type": "module" },
+  "content_scripts": [{
+    "matches": ["https://utah.instructure.com/courses/*"],
+    "js": ["src/canvas-listener.js"],
+    "run_at": "document_start"
+  }],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'"
+  }
+}

@@ -1,0 +1,12 @@
+:root { font-family: system-ui, sans-serif; color: #e9eaed; background: #26282d; }
+body { margin: 0; }
+header { height: 52px; box-sizing: border-box; display: flex; align-items: center; gap: 24px; padding: 0 20px; background: #34373d; border-bottom: 1px solid #50535b; }
+#filename { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; font-size: 14px; }
+#pageCount, .badge { font-size: 12px; color: #c5c9d3; }
+#viewerContainer { position: absolute; inset: 52px 0 0; overflow: auto; }
+#status { position: fixed; top: 72px; left: 50%; transform: translateX(-50%); z-index: 10; padding: 12px 20px; border-radius: 8px; background: #34373d; }
+#error { position: relative; z-index: 20; max-width: 580px; margin: 60px auto; padding: 28px; background: #34373d; border-radius: 12px; line-height: 1.6; }
+#error h1 { font-size: 22px; }
+button { font: inherit; cursor: pointer; padding: 9px 16px; border: 1px solid #777f8e; border-radius: 6px; background: #464b55; color: white; }
+button:hover { background: #596171; }
+[hidden] { display: none !important; }
