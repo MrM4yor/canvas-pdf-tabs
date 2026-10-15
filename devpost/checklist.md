@@ -9,7 +9,7 @@ Build mode: learn
 
 Git: learner approved initialization and slice checkpoints. Existing ignore rules exclude the learner profile and local credentials. Slice 1 committed as 8f59ed9 after learner verification. Project-local author identity configured with learner-provided details.
 
-Current progress: learner confirmed the complete reader, themes and Download work as intended. Slice 3 verified; learner explicitly requested the previously deferred local bookmarks/page notes as an additional slice. Final review and learning wrap-up remain pending.
+Current progress: learner confirmed named bookmarks, positioned notes and highlights work as intended. Slice 4 verified. Learner requested a further refinement: note styles/presets, resizing, tabbed sidebar, compact annotation table, toolbar icons and highlight shortcut.
 
 ## Slices
 
@@ -43,6 +43,15 @@ Current progress: learner confirmed the complete reader, themes and Download wor
   Learner check: Try themes and deliberate Download; exercise the agreed recovery cases with guidance, then freely use the extension on coursework and report anything broken or confusing.
   Commit: `Finish viewer themes download and recovery`
 
+- [x] **4. Keep page bookmarks and notes across reopenings**
+  Becomes usable: Saved page bookmarks and editable notes return with the same Canvas PDF and jump directly to their pages.
+  Why now: Learner explicitly requested the previously deferred addition after the core reader passed testing.
+  PRD ref: `prd.md > Saved Page Bookmarks and Notes — Added After Reader Verification`
+  Spec ref: `spec.md > Local Annotation Store and Sidebar`, `spec.md > Data Model`
+  Build: Add local per-entry storage, content-version identity, bookmark toggle, sidebar, autosaving page-note editor, jump buttons, Remove/Undo and cross-tab updates. Preserve the reader and original-PDF download.
+  Verify (mechanical): Test persistence after reopening, file/version isolation, unrelated concurrent writes, save ordering, removal/Undo, validation and recovery after storage failures. Run all tests and build. Label live checks pending until learner feedback.
+  Learner check: Bookmark and note a page, close and reopen the same PDF from Canvas, jump to entries and edit. Try another PDF and another tab, removal/Undo, and normal reader controls with the sidebar open.
+  Commit: `Persist local PDF bookmarks and page notes`
 ## Hands-on Checkpoints
 
 - [x] Early usable behavior explored — after slice 1, real Canvas PDF access and click/tab behavior
@@ -65,6 +74,10 @@ Reflection: not yet offered; personal responses belong in the ignored learner pr
 Activity mode: not yet established
 
 ## Revisions
+
+- Learner tested local saved items and requested bookmark names, draggable on-page text boxes and highlights. Extended slice 4, PRD and spec accordingly. Added page-relative coordinates and selection rectangles to individually keyed records without changing existing identities; existing notes receive default positions. Original-PDF Download remains unchanged.
+
+- Learner explicitly promoted local bookmarks and page notes after confirming the core reader works. Added slice 4 and updated scope/PRD/spec. The original Download behavior is unchanged; local notes use per-entry records and content-version separation.
 
 - Slice 2 learner check: all reader controls worked, but opening fit-width was inconvenient and search/link overlays were offset. Changed initial scale to 100% and scoped our border-box CSS to interface controls; the global rule was shrinking PDF.js page canvases relative to their overlay coordinate system. Awaiting confirmation of overlay alignment before committing slice 2.
 

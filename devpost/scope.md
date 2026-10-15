@@ -53,7 +53,7 @@ Possible ideas raised earlier, not required or committed: reusing a tab when reo
 
 ## Explicitly Cut
 
-- PDF editing and annotation: the learner only reads, views, and finds information.
+- PDF content editing, freehand drawing and annotation export remain cut. Learner explicitly added text-selection highlighting, named bookmarks and draggable page notes during testing. After core-reader verification, the learner explicitly requested persistent page bookmarks and editable page notes; those are now included as a local extension feature.
 - Requiring Acrobat for Chrome: the learner accepts a separate viewer meeting the reading requirements.
 - Other schools and browsers: University of Utah Canvas in Chrome is sufficient for this project.
 - The screenshot-to-MATLAB tool: a separate idea, not needed to prove this workflow.

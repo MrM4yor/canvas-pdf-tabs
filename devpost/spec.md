@@ -99,7 +99,7 @@ Other failures: show a plain message plus Retry and Back to Canvas. Retry re-res
 - Metadata/download URL: transient viewer memory; refreshed on retry. No logging of tokens or query-string signatures.
 - Original PDF bytes and PDF.js document: viewer memory until tab closes; rendering caches are managed by PDF.js. Browser networking may cache responses normally; this is not an extension Downloads-folder save.
 - Viewer settings: page, scale, spread, search query, theme and status in that viewer's memory. Source Canvas navigation does not reset them. Browser restart/tab-close persistence is not guaranteed.
-- No bookmark/note database in this build. Future work can use chrome.storage.local keyed by Canvas origin/file ID with a file-replacement policy.
+- Bookmarks and page notes use chrome.storage.local, keyed by Canvas origin, file ID, SHA-256 content hash and entry ID. One key per entry prevents unrelated multi-tab writes from overwriting a whole-document record. PDF contents are never saved to local storage.
 
 ## File Structure
 
@@ -157,7 +157,7 @@ Session probe implementation: after an access failure only, GET https://utah.ins
 
 ## What Was Simplified and Why
 
-One institution/browser, plain web files, an existing PDF engine, local loading and no backend keep the build focused. Bookmarks/notes, tab deduplication and cross-session reading restoration are deferred as agreed. No bespoke PDF parser, account system, database, hosted deployment or store release is needed to demonstrate the workflow.
+One institution/browser, plain web files, an existing PDF engine, local loading and no backend keep the build focused. The learner promoted local bookmarks/page notes after verifying the core reader. Tab deduplication and cross-session reading-position restoration remain deferred. No bespoke PDF parser, account system, database, hosted deployment or store release is needed to demonstrate the workflow.
 
 ## Decisions and Open Issues
 
@@ -171,3 +171,13 @@ Remaining build investigations: actual assignment/Files DOM shapes, session cred
 
 ### Dashboard exclusion (learner-requested refinement)
 Inject the Canvas listener only on /courses/*, never the dashboard. Existing handlers check the current path before doing work if navigation occurs without a reload. This does not change PDF reading on assignments, course home pages or Files.
+
+### Local Annotation Store and Sidebar
+
+Implements prd.md > Saved Page Bookmarks and Notes — Added After Reader Verification. src/viewer/annotation-store.js owns identity, validation and individually keyed chrome.storage.local records. src/viewer/annotations.js owns the right sidebar, page bookmark toggle, note editor, autosave status, page jumps and removal/Undo. Hash original PDF bytes before PDF.js transfers them to the worker. Each entry has id, type, page, text, updatedAt; use bookmark-PAGE for a page bookmark and UUIDs for notes. Serialize same-tab writes; listen to storage.onChanged to refresh other tabs. Concurrent edits to the same note use last-writer behavior; unrelated note keys remain independent. Store old content versions separately and show a notice rather than migrating page associations automatically.
+
+Local storage is restricted to trusted extension contexts; the existing storage permission suffices. Sidebar CSS must not alter PDF.js page geometry. Render notes as textContent, not HTML. Storage errors leave editor text available with a visible retry-save action. Data remains local to this Chrome profile and is removed on uninstall/storage clearing. Download still saves only the original PDF. No cloud sync, embedded annotation export or freehand drawing. Learner-requested positioned notes and text highlights are described below.
+
+### Page Mark Overlays
+
+src/viewer/page-marks.js renders local note boxes and yellow highlight rectangles in a separate pointer-transparent layer on each PDF.js page. Notes alone accept pointer input; draggable headers use pointer capture and save bounded normalized x/y on release. Width/height scale with the page. Existing text notes default to x=.08,y=.10. Text entry autosaves via the local store; sidebar editing preserves the latest coordinates. Saved highlights use page-content bounds excluding borders, normalized selection rectangles and original selected text, including per-page entries for multi-page selections. Reject non-PDF text selections and empty selections. Redraw after PDF.js pagerendered and local storage changes; do not replace a focused note textarea. Bookmark names use the existing text field. No storage-key migration or permissions expansion is needed.

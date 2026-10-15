@@ -11,7 +11,7 @@ function setup(tabUrl) {
   const calls=[]; let receive;
   const chrome={
     runtime:{ getURL:path=>`chrome-extension://test/${path}`, onMessage:{addListener:fn=>receive=fn} },
-    storage:{session:{get:async key=>key?{[key]:store[key]}:store,set:async values=>Object.assign(store,values),remove:async()=>{}}},
+    storage:{local:{setAccessLevel:async()=>{}},session:{get:async key=>key?{[key]:store[key]}:store,set:async values=>Object.assign(store,values),remove:async()=>{}}},
     tabs:{get:async()=>{if(tabUrl===null)throw Error('closed');return {id:1,url:tabUrl};}, update:async(...args)=>calls.push(['update',...args]),reload:async(...args)=>calls.push(['reload',...args]),create:async(...args)=>calls.push(['create',...args]),onRemoved:{addListener(){}}}
   };
   vm.runInNewContext(source,{chrome,CANVAS,canvasUrl,validOpenMessage});

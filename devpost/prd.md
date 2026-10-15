@@ -108,7 +108,7 @@ Acceptance: demonstrate all theme modes and a user-initiated download. Opening a
 - Use the compact agreed layout with no promotional popups or default sidebars.
 - Preserve original PDF page colors even in dark theme.
 - Download remains an explicit optional action, rather than a side effect of reading.
-- Defer bookmarks and page notes until the core reader works; local storage in the Chrome profile is the desired later approach.
+- After verifying the core reader, the learner explicitly requested locally saved page bookmarks and editable page notes across reopenings.
 - On expired login, return to refreshed Canvas; on other errors, offer Retry and Back to Canvas.
 
 ## What We're Building
@@ -117,20 +117,34 @@ The Canvas link-to-tab workflow, five core reading capabilities, agreed viewer l
 
 ## Deferred From the POC
 
-Bookmarks and editable page-attached notes, locally associated with the same Canvas file across reopenings, are stretch work only. They reopen scope's earlier annotation exclusion only if deliberately added after the reader is verified. Existing annotations are not to be silently attached to replacement files.
+Bookmarks and page notes were explicitly promoted into the build after reader verification. Their implementation is defined below. Existing notes must not be silently applied to replacement document contents.
 
 Tab reuse for repeated clicks on the same PDF, remembered page/zoom, and broader Canvas link locations are not required for the first proof. Theme persistence between viewer sessions can be specified later and is not a success criterion here.
 
 ## Possible Later Enhancements
 
-A right sidebar for saved page bookmarks and notes, with automatic local saving in this Chrome profile. No cross-device synchronization is promised. Download continues to mean the original PDF unless annotation export is separately agreed.
+Cross-device synchronization and annotation export remain deferred. Download continues to mean the original PDF.
+
+## Saved Page Bookmarks and Notes — Added After Reader Verification
+
+Add a Bookmark page toggle beside page navigation and a Notes & bookmarks toolbar button opening a right sidebar. List saved bookmarks and plain-text page notes with page-jump buttons. Notes have an editor, automatic local saving while typing, visible save/error status and a retry-save action. Entries can be removed with Undo. Reopening the same Canvas PDF restores its entries, allowing page jumps and note edits.
+
+Save in this Chrome profile under Canvas origin, file ID and content version, not filename. Other PDFs stay separate. Changed contents start a separate version; retain old-version entries and display a notice rather than silently attaching them to different pages. Multiple tabs share updates without overwriting unrelated entries. Page notes now also appear as draggable editable text boxes on their PDF page, with position retained across zoom and reopenings. Text selection highlights are included; freehand drawing and PDF content edits remain out. Uninstalling or clearing extension storage removes them.
+
+Acceptance: bookmark and note a page, close and reopen its Canvas PDF, jump to saved entries and edit the note. Confirm another PDF is separate, saved changes appear in a second tab, and removal/Undo works. Download remains the original PDF without extension notes.
 
 ## Non-Goals
 
-PDF editing, drawing, highlighting, annotation export, OCR, Acrobat integration, other browsers/institutions, a cloud account system, and Chrome Web Store publication. These are not necessary to prove the learner's workflow.
+PDF content editing, freehand drawing, annotation export, OCR, Acrobat integration, other browsers/institutions, a cloud account system, and Chrome Web Store publication. These are not necessary to prove the learner's workflow.
 
 ## Open Questions
 
 - Technical investigation for 4-spec/build: authenticated file access, PDF-serving redirects, installed Acrobat interaction, reliable expired-session detection, and supported attachment link forms. No live runtime test has yet occurred.
 - Working title can remain Canvas PDF Tabs; no final branding is needed to test the product.
 - No unresolved core product choices block technical planning. Detailed fit/navigation interactions can follow conventional reader behavior within these requirements.
+
+### Named Bookmarks, Positioned Notes and Text Highlights — Learner Revision
+
+Bookmarking a page immediately opens a name field; names autosave. Existing bookmarks can be renamed in the sidebar. Notes appear as editable text boxes on the page and can be moved by dragging their header; retain their page-relative location through zoom and reopening. Sidebar entries still jump to their pages and can edit/remove entries. Existing notes remain readable and receive a default position.
+
+Select PDF text, then press Highlight to save translucent yellow highlights. Store per-line page-relative rectangles; no OCR for image-only scans. Highlights appear in the saved-items sidebar with page navigation and removal/Undo. They persist locally with the same file/version isolation as notes. Download still means the original, unmodified PDF. Acceptance includes naming/renaming, moving and reopening notes, highlighting selectable text, zooming with aligned highlights, and reopening the PDF to confirm all saved changes.

@@ -4,7 +4,7 @@ An in-progress local Chrome extension for University of Utah Canvas. It opens PD
 
 ## Current checkpoint
 
-PDF opening and reading controls are learner-verified on live Utah Canvas, including assignments, class home pages and nested Files folders. The dashboard is excluded. Themes, intentional original-PDF Download and access recovery are implemented and awaiting final hands-on review. Bookmarks and notes are deferred.
+PDF opening and reading controls are learner-verified on live Utah Canvas, including assignments, class home pages and nested Files folders. The dashboard is excluded. Themes, intentional original-PDF Download and access recovery are implemented and awaiting final hands-on review. Local bookmarks/page notes are implemented and awaiting a hands-on persistence check.
 
 ## Build and load
 
@@ -26,6 +26,16 @@ If a Canvas file still opens in the original preview, report whether it was from
 
 `npm test` runs focused tests for URL/message validation and PDF fetching. `node scripts/create-fixture.mjs` regenerates a synthetic test PDF. A local render check is available by opening `chrome-extension://EXTENSION_ID/src/viewer/viewer.html?fixture=1` with the ID shown in Chrome's extension card. This proves rendering only, not authenticated Canvas access.
 
-Only Utah Canvas is permitted. Unexpected file-serving hosts currently produce an explanation rather than requesting all-sites access. Session access and Files-page markup need live verification. No PDF contents are sent to a service we operate. Bookmarks, notes, saved reading positions and other institutions are not implemented.
+Only Utah Canvas is permitted. Unexpected file-serving hosts currently produce an explanation rather than requesting all-sites access. Session access and Files-page markup need live verification. No PDF contents are sent to a service we operate. Saved reading positions and other institutions are not implemented; local bookmarks/page notes are described below.
 
 The extension uses bundled Mozilla PDF.js; see THIRD_PARTY_NOTICES.md.
+
+## Local bookmarks and page notes
+
+Bookmark toggles the current page. Notes & bookmarks opens a right sidebar with saved page-jump entries and an Add note button. Notes save as you type; wait for Saved locally before closing the tab. Save again retries a failed save. Remove offers Undo within the current viewer session.
+
+Entries are saved in this extension's chrome.storage.local on this computer/profile, not synced to Google or embedded in the PDF. Reopen the same Canvas PDF to restore them. A SHA-256 content fingerprint separates replacement versions; old entries are retained with a notice rather than attached to potentially wrong pages. Different notes use separate keys so independent tabs do not overwrite one shared document record. Simultaneous edits of the same note use last-writer behavior. Uninstalling or clearing extension storage removes saved items. Download continues to save the original PDF without extension notes.
+
+### Positioned notes and highlights
+
+Bookmarking opens a name field; Rename in the sidebar changes it later. Add note creates an editable yellow box on the page; drag its header to reposition it. Select PDF text and press Highlight to save a yellow selection highlight. Entries, names, positions and highlights remain local and restore with the same PDF. Scanned pages without selectable text do not support highlighting. The sidebar lists/removes entries and offers Undo. Exporting annotations or freehand drawing is not implemented; Download saves the original PDF.

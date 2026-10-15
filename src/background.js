@@ -2,6 +2,7 @@ import { CANVAS, canvasUrl, validOpenMessage } from './shared/contracts.js';
 
 const viewerPath = chrome.runtime.getURL('src/viewer/viewer.html');
 const key = id => `request:${id}`;
+chrome.storage.local.setAccessLevel({ accessLevel: 'TRUSTED_CONTEXTS' }).catch(() => {});
 
 async function route(message, sender) {
   if (validOpenMessage(message)) {

@@ -3,6 +3,8 @@ import { PDFViewer, EventBus, PDFLinkService, PDFFindController } from '../../ve
 import { loadCanvasPdf } from '../file-loader.js';
 import { wireReaderControls } from './reader-controls.js';
 import { wireTheme, safeFilename } from './viewer-extras.js';
+import { wireAnnotations } from './annotations.js';
+import { documentIdentity } from './annotation-store.js';
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = chrome.runtime.getURL('vendor/pdfjs/build/pdf.worker.mjs');
 const eventBus = new EventBus();
@@ -12,6 +14,7 @@ const container = document.getElementById('viewerContainer');
 const viewer = new PDFViewer({ container, eventBus, linkService, findController, annotationEditorMode: pdfjsLib.AnnotationEditorType.DISABLE, annotationMode: pdfjsLib.AnnotationMode.ENABLE });
 linkService.setViewer(viewer);
 const controls = wireReaderControls({ viewer, eventBus, container });
+const annotations = wireAnnotations({ viewer, eventBus });
 const requestId = new URL(location.href).searchParams.get('request');
 const status = document.getElementById('status');
 let task, originalBlob, originalName;
@@ -28,13 +31,14 @@ async function open() {
   document.getElementById('error').hidden = true;
   try {
     controls.setLoading();
+    annotations.reset();
     viewer.setDocument(null);
     linkService.setDocument(null);
     findController.setDocument(null);
     await task?.destroy();
     let data;
     if (new URL(location.href).searchParams.has('fixture')) {
-      data = { bytes: new Uint8Array(await (await fetch('../../tests/fixtures/reading-test.pdf')).arrayBuffer()), filename: 'Synthetic reading test.pdf' };
+      data = { bytes: new Uint8Array(await (await fetch('../../tests/fixtures/reading-test.pdf')).arrayBuffer()), fileId:'fixture-reading-test', filename: 'Synthetic reading test.pdf' };
     } else {
       const result = await chrome.runtime.sendMessage({ type: 'GET_REQUEST', requestId });
       if (!result?.ok) throw new Error(result?.error || 'Open this PDF from Canvas again.');
@@ -42,6 +46,7 @@ async function open() {
     }
     // PDF.js transfers the Uint8Array to its worker; preserve original bytes before that transfer.
     const blob = new Blob([data.bytes], { type: 'application/pdf' });
+    const identity = await documentIdentity(data.fileId, data.bytes);
     document.getElementById('filename').textContent = data.filename;
     document.getElementById('filename').title = data.filename;
     document.title = `${data.filename} · Canvas PDF Tabs`;
@@ -56,6 +61,7 @@ async function open() {
     linkService.setDocument(doc);
     findController.setDocument(doc);
     viewer.setDocument(doc);
+    await annotations.load(identity, doc.numPages);
   } catch (error) {
     status.hidden = true;
     document.getElementById('errorText').textContent = error.name === 'TimeoutError' ? 'The request timed out. Retry or return to Canvas.' : error.message;

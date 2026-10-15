@@ -30,5 +30,5 @@ export async function loadCanvasPdf(fileId) {
   if (!response.ok) throw await accessError(`Canvas could not load the PDF (HTTP ${response.status}). Retry or return to Canvas.`);
   const bytes = new Uint8Array(await response.arrayBuffer());
   if (!hasPdfHeader(bytes)) throw await accessError('Canvas did not return PDF contents. Your session may have expired, or access may be restricted.');
-  return { bytes, filename: meta.display_name || meta.filename || 'Canvas PDF' };
+  return { bytes, fileId, filename: meta.display_name || meta.filename || 'Canvas PDF' };
 }
