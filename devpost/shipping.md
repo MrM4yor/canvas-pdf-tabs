@@ -2,6 +2,8 @@
 
 Repository: https://github.com/MrM4yor/canvas-pdf-tabs
 
+Release: https://github.com/MrM4yor/canvas-pdf-tabs/releases/tag/v0.1.0 . Repository, planning documents, MIT license, privacy page and release ZIP were verified over unauthenticated HTTPS on October 15, 2026. Download SHA-256: `3ad0c04e26813850dac543b6e6729524aea516a4f4a100a4ae527103f3151ca1`.
+
 Demo video: not recorded or uploaded yet. Store listing: not submitted yet. Devpost: not submitted.
 
 ## Demo: before and after, approximately 2 minutes 30 seconds
@@ -35,7 +37,7 @@ Store documentation: https://developer.chrome.com/docs/webstore/register/ ; http
 
 ## Devpost handoff
 
-- [ ] Public repository link verified without sign-in, including scope/PRD/spec and MIT license.
+- [x] Public repository link verified without sign-in, including scope/PRD/spec and MIT license.
 - [ ] Accessible public demo video, showing the real working workflow, linked here.
 - [ ] Learner-written project name, description and required submission answers.
 - [ ] Learner exit-survey responses and any required eligibility/skill-use fields completed in the actual form.
