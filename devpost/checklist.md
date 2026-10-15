@@ -9,7 +9,7 @@ Build mode: learn
 
 Git: learner approved initialization and slice checkpoints. Existing ignore rules exclude the learner profile and local credentials. Slice 1 committed as 8f59ed9 after learner verification. Project-local author identity configured with learner-provided details.
 
-Current progress: learner confirmed named bookmarks, positioned notes and highlights work as intended. Slice 4 verified. Learner requested a further refinement: note styles/presets, resizing, tabbed sidebar, compact annotation table, toolbar icons and highlight shortcut.
+Current progress: learner confirmed readiness for shipping after live exploration and final annotation refinements. All 37 tests and packaging pass. Final highlight navigation centers both axes at the existing zoom. Build wrap-up uses an evidence-based recap and offline reference map.
 
 ## Slices
 
@@ -52,28 +52,41 @@ Current progress: learner confirmed named bookmarks, positioned notes and highli
   Verify (mechanical): Test persistence after reopening, file/version isolation, unrelated concurrent writes, save ordering, removal/Undo, validation and recovery after storage failures. Run all tests and build. Label live checks pending until learner feedback.
   Learner check: Bookmark and note a page, close and reopen the same PDF from Canvas, jump to entries and edit. Try another PDF and another tab, removal/Undo, and normal reader controls with the sidebar open.
   Commit: `Persist local PDF bookmarks and page notes`
+- [x] **5. Customize note styles and streamline annotation navigation**
+  Becomes usable: One-click note creation, color/transparency/resize controls, persistent defaults and named presets, compact navigation table, icon toolbar and Ctrl+Shift+H highlighting.
+  Why now: Learner requested these refinements after verifying the positioned annotation slice.
+  PRD ref: `prd.md > Note Styles and Compact Annotation Navigation — Learner Revision`
+  Spec ref: `spec.md > Note Style Presets and Compact Sidebar`
+  Build: Separate settings from the annotation table; retain existing saved data. Add validated per-note appearance and dimensions, default/preset storage, resize grip, SVG actions and viewer-local shortcut.
+  Verify (mechanical): Run all tests and packaging; test style/default/preset persistence, invalid-style rejection, dimension-aware bounds, legacy notes and shortcut matching. Check live UI with the learner before committing.
+  Learner check: Create a note using its toolbar icon, type, change appearance, resize, save two styles and a default, then add another note and reopen the PDF. Try table navigation and icon actions, rename/remove/Undo, and Ctrl+Shift+H on selected text.
+  Commit: `Add note style presets and compact annotation controls`
 ## Hands-on Checkpoints
 
 - [x] Early usable behavior explored — after slice 1, real Canvas PDF access and click/tab behavior
-- [ ] Final kick-the-tires exploration and feedback completed — after slice 3
+- [x] Final kick-the-tires exploration and feedback completed — after slice 3
 
 ## Final Review
 
-- [ ] Final review complete — feedback resolved and learner confirms ready to ship
+- [x] Final review complete — feedback resolved and learner confirms ready to ship
 
 ## Code Tour and App Map
 
-- [ ] Learning activity complete — follow one actual Canvas click through the listener, coordinator and viewer, connecting the risk-first checkpoint to reusable agentic workflow
-- [ ] Optional edit and transfer reflection addressed — offer once after revisions
-- [ ] `devpost/app-map.html` generated from finished code, checked, and shown, including a project-grounded practice to reuse
+- [x] Learning activity complete — follow one actual Canvas click through the listener, coordinator and viewer, connecting the risk-first checkpoint to reusable agentic workflow
+- [x] Optional edit and transfer reflection addressed — offer once after revisions
+- [x] `devpost/app-map.html` generated from finished code, checked, and shown, including a project-grounded practice to reuse
 
-Activity and evidence: not yet performed
-Route and stops: to be recorded from actual finished code
-Edit outcome: not yet offered
-Reflection: not yet offered; personal responses belong in the ignored learner profile
-Activity mode: not yet established
+Activity and evidence: evidence-based recap of the first-risk-first build and real Canvas verification; learner requested shipping after iterative hands-on checks. No new hands-on exercise is claimed.
+Route and stops: reference route in app-map.html: canvas-listener click handler → background route → viewer open/file loader.
+Edit outcome: not applicable; retained learner-directed refinements already provided repeated small change/verify cycles.
+Reflection: optional next-project question offered; answer is not required and belongs only in the ignored learner profile.
+Activity mode: concise recap of actual build evidence plus offline reference map; not an interactive code tour.
 
 ## Revisions
+
+- Learner requested uniform multiline highlights, no # column, and no sidebar/tab changes when creating annotations, with All annotations open on initial load. Replaced separately composited rectangles with one SVG path per highlight, moved naming to a floating field and updated sidebar initialization/action behavior.
+
+- Learner requested note appearance controls, resizing, defaults/multiple presets, sidebar tabs, compact all-annotation table and icon toolbar. Added slice 5. Learner preferred Ctrl+Shift+H to Ctrl+Alt+H after shortcut research; use the former only inside the viewer. Existing saved entries retain their identities and default appearance.
 
 - Learner tested local saved items and requested bookmark names, draggable on-page text boxes and highlights. Extended slice 4, PRD and spec accordingly. Added page-relative coordinates and selection rectangles to individually keyed records without changing existing identities; existing notes receive default positions. Original-PDF Download remains unchanged.
 
@@ -84,3 +97,4 @@ Activity mode: not yet established
 - Learner confirmed slice 1 works on live Canvas. Per request, restricted injection to /courses/* and made existing listeners inert off course pages to isolate dashboard slowdown. Cause of slowdown remains unverified.
 
 - First learner test confirmed assignment/home-page foreground and background tab opening, but the reader remained on Loading and Files-folder links bypassed it. Fixed a PDF.js integration error (the container must be a DIV), added guarded startup error reporting, and expanded file-preview parsing to folder paths. Replaced whole-page mutation scanning with link-local hover/focus checks to eliminate unnecessary dashboard scans and prefetches. Nine tests now cover the loader, contracts, actual folder-click handler, no startup scans, and required viewer markup; live retry remains pending.
+

@@ -3,7 +3,8 @@ import { PDFViewer, EventBus, PDFLinkService, PDFFindController } from '../../ve
 import { loadCanvasPdf } from '../file-loader.js';
 import { wireReaderControls } from './reader-controls.js';
 import { wireTheme, safeFilename } from './viewer-extras.js';
-import { wireAnnotations } from './annotations.js';
+import { wireAnnotations } from './annotations-ui.js';
+import { iconButton } from './icons.js';
 import { documentIdentity } from './annotation-store.js';
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = chrome.runtime.getURL('vendor/pdfjs/build/pdf.worker.mjs');
@@ -19,6 +20,7 @@ const requestId = new URL(location.href).searchParams.get('request');
 const status = document.getElementById('status');
 let task, originalBlob, originalName;
 wireTheme({ select: document.getElementById('theme') });
+for(const [id,kind,label] of [['findButton','find','Find text (Ctrl+F)'],['download','download','Download original PDF'],['notesToggle','note','Add note'],['annotationsToggle','list','All annotations'],['highlightText','highlight','Highlight selected text (Ctrl+Shift+H)']])iconButton(document.getElementById(id),kind,label);
 
 eventBus.on('pagesinit', () => { viewer.currentScale = 1; });
 eventBus.on('pagerendered', () => { status.hidden = true; });

@@ -148,3 +148,15 @@ PDF content editing, freehand drawing, annotation export, OCR, Acrobat integrati
 Bookmarking a page immediately opens a name field; names autosave. Existing bookmarks can be renamed in the sidebar. Notes appear as editable text boxes on the page and can be moved by dragging their header; retain their page-relative location through zoom and reopening. Sidebar entries still jump to their pages and can edit/remove entries. Existing notes remain readable and receive a default position.
 
 Select PDF text, then press Highlight to save translucent yellow highlights. Store per-line page-relative rectangles; no OCR for image-only scans. Highlights appear in the saved-items sidebar with page navigation and removal/Undo. They persist locally with the same file/version isolation as notes. Download still means the original, unmodified PDF. Acceptance includes naming/renaming, moving and reopening notes, highlighting selectable text, zooming with aligned highlights, and reopening the PDF to confirm all saved changes.
+
+### Note Styles and Compact Annotation Navigation — Learner Revision
+
+The toolbar note icon immediately creates an editable page note, opens the Note settings sidebar tab and focuses the page text box. Clicking an existing note selects it for appearance changes. Note settings support background color and transparency (text remains readable), draggable corner resizing, Set as default, and multiple named saved style presets. Defaults and presets include size/color/transparency, persist locally across documents, and do not restyle existing notes unless applied. Dragging/resizing remains bounded to the page and survives reopening.
+
+A separate All annotations sidebar tab provides one compact table for notes, highlights and bookmarks with Name, type icon, Page, #, rename icon and trash icon columns. Names jump to the page; existing removal/Undo remains available. Find, Download, Add note and Highlight toolbar actions use icons with hover labels and accessible names. A separate annotations-list icon opens navigation without creating a note.
+
+Highlight uses Ctrl+Shift+H while the viewer has focus, per the learner's preferred modifier. Ctrl+H remains Chrome History. Acceptance includes color/transparency changes, drag resizing, multiple style presets, default style on a new note, table navigation/rename/remove, keyboard highlight and saved appearance after reopening.
+
+### Sidebar and Highlight Refinement — Latest Learner Direction
+
+All annotations is open by default when a document loads. Creating or focusing notes, creating highlights and adding bookmarks must preserve current sidebar visibility and tab selection; Note settings opens only when explicitly selected. Bookmark naming remains immediately available through a floating field that does not open/switch the sidebar. Remove the # table column; retain Name, Type icon, Page, Rename and Remove. Within a saved highlight, overlapping selection rectangles must not compound opacity; middle lines must have the same yellow as first/last lines. These choices supersede earlier automatic sidebar-opening behavior and table numbering.

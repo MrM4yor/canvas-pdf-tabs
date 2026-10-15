@@ -16,7 +16,8 @@
       <button id="findButton" title="Find text (Ctrl+F)">Find</button>
     </fieldset>
     <button id="download" disabled title="Download the original PDF">Download</button>
-    <button id="notesToggle" disabled aria-expanded="false" aria-controls="notesSidebar">Notes & bookmarks</button>
+    <button id="notesToggle" disabled aria-controls="notesSidebar" title="Add note">Note</button>
+    <button id="annotationsToggle" disabled aria-expanded="false" aria-controls="notesSidebar" title="All annotations">Annotations</button>
     <button id="highlightText" disabled title="Select PDF text, then highlight it">Highlight</button>
     <select id="theme" aria-label="Viewer theme"><option value="system">System theme</option><option value="light">Light</option><option value="dark">Dark</option></select>
   </header>
@@ -26,18 +27,27 @@
   <div id="viewerContainer" role="main" tabindex="0" aria-label="PDF document"><div id="viewer" class="pdfViewer"></div></div>
   <fieldset id="layoutControls" disabled aria-label="Page layout"><button id="onePage" aria-pressed="true">One page</button><button id="twoPages" aria-pressed="false">Two pages</button></fieldset>
   <aside id="notesSidebar" hidden aria-label="Notes and bookmarks">
-    <div class="sidebarHeading"><h2>Notes & bookmarks</h2><button id="closeNotes" aria-label="Close notes sidebar">×</button></div>
-    <section id="bookmarkEditor" hidden><label for="bookmarkName">Bookmark name</label><input id="bookmarkName" maxlength="160" placeholder="Name this bookmark"><small>Saved automatically · Enter to finish</small></section>
+    <div class="sidebarHeading"><h2>Annotations</h2><button id="closeNotes" aria-label="Close notes sidebar">×</button></div>
+    <div class="sidebarTabs" role="tablist" aria-label="Annotation tools"><button id="settingsTab" role="tab" aria-controls="settingsPanel" aria-selected="true">Note settings</button><button id="allTab" role="tab" aria-controls="allPanel" aria-selected="false">All annotations</button></div>
     <p id="versionNotice" hidden>Saved items from an earlier version of this file are retained separately. They are not applied to this version.</p>
-    <button id="newNote" disabled>Add note on this page</button>
-    <section id="noteEditor" hidden>
-      <label id="notePage" for="noteText">Page note</label>
-      <textarea id="noteText" maxlength="10000" placeholder="Your note — saves automatically as you type"></textarea>
-      <button id="saveNote">Save again</button>
+    <section id="settingsPanel" role="tabpanel" aria-labelledby="settingsTab">
+      <p id="selectedNoteLabel">New note settings</p>
+      <button id="newNote" disabled>Add note on this page</button>
+      <div class="noteSetting"><label for="noteColor">Color</label><input id="noteColor" type="color" value="#fff1a8"></div>
+      <div class="noteSetting"><label for="noteTransparency">Transparency</label><output id="transparencyValue">0%</output><input id="noteTransparency" type="range" min="0" max="100" value="0"></div>
+      <p class="storageHint">Resize with the note’s lower-right grip. Transparency changes its background; text stays readable.</p>
+      <button id="setDefaultStyle">Set as default for new notes</button>
+      <h3>Saved styles</h3>
+      <label class="srOnly" for="presetSelect">Saved note style</label><select id="presetSelect"><option value="">Choose a saved style</option></select>
+      <div class="presetActions"><button id="applyStylePreset">Apply</button><button id="deleteStylePreset">Remove style</button></div>
+      <label for="presetName">Save current settings as</label><input id="presetName" maxlength="80" placeholder="Style name"><button id="saveStylePreset">Save style</button>
+    </section>
+    <section id="allPanel" role="tabpanel" aria-labelledby="allTab" hidden>
+      <section id="bookmarkEditor" hidden><label for="bookmarkName">Annotation name</label><input id="bookmarkName" maxlength="160" placeholder="Name this annotation"><small>Saved automatically · Enter to finish</small></section>
+      <p id="emptyNotes">No saved items yet.</p>
+      <table class="annotationTable"><colgroup><col class="nameColumn"><col><col><col><col></colgroup><thead><tr><th>Name</th><th title="Annotation type">Type</th><th>Page</th><th><span class="srOnly">Rename</span></th><th><span class="srOnly">Remove</span></th></tr></thead><tbody id="savedEntries"></tbody></table>
     </section>
     <p id="noteStatus" role="status">Saved locally in this Chrome profile.</p><button id="undoRemove" hidden>Undo removal</button>
-    <p id="emptyNotes">No saved items yet. Bookmark a page or add a note to find it here next time.</p>
-    <div id="savedEntries"></div>
     <p class="storageHint">Local to this computer. Uninstalling the extension or clearing its storage removes saved items.</p>
   </aside>
   <script type="module" src="bootstrap.js"></script>

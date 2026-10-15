@@ -39,3 +39,11 @@ Entries are saved in this extension's chrome.storage.local on this computer/prof
 ### Positioned notes and highlights
 
 Bookmarking opens a name field; Rename in the sidebar changes it later. Add note creates an editable yellow box on the page; drag its header to reposition it. Select PDF text and press Highlight to save a yellow selection highlight. Entries, names, positions and highlights remain local and restore with the same PDF. Scanned pages without selectable text do not support highlighting. The sidebar lists/removes entries and offers Undo. Exporting annotations or freehand drawing is not implemented; Download saves the original PDF.
+
+### Note appearance and navigation
+
+The note toolbar icon creates a note and opens Note settings. Click a note to select it; adjust background color and transparency there. Drag the lower-right grip to resize. Set as default saves the selected note's size/color/transparency for new notes. Save style creates a named preset; choose one and Apply to reuse it. Defaults and presets are local to this Chrome profile across PDFs, and existing notes keep their own styles.
+
+The list icon opens All annotations: a compact Name / Type / Page / # table with Rename and Remove icons. Find, Download, Note, Highlight and list icons show labels on hover. Highlight selected PDF text with Ctrl+Shift+H while the document has focus; Ctrl+H retains Chrome History. Original-PDF download and file-version separation are unchanged.
+
+All annotations now opens on document load. Creating annotations does not reopen or switch the sidebar; use Note settings explicitly to change appearance. Bookmark naming uses a floating field (Enter/Escape closes it). The navigation table has no numbering column. Multiline saved highlights use one filled path per entry so nested selection rectangles do not darken middle lines.
