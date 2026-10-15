@@ -4,7 +4,7 @@ An in-progress local Chrome extension for University of Utah Canvas. It opens PD
 
 ## Current checkpoint
 
-Slice 1: basic Canvas click handling, PDF fetching and rendering. Full toolbar, themes, explicit download and login recovery are later slices. Real Utah Canvas compatibility is awaiting the learner's test; it is not yet proven.
+Slice 1 is verified on live Utah Canvas, including assignments, class home pages and nested Files folders. The dashboard is excluded. Slice 2 adds zoom, fitting, page navigation, layouts and text search; these controls await hands-on feedback. Themes, explicit Download and login recovery remain for slice 3.
 
 ## Build and load
 

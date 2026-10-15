@@ -56,6 +56,7 @@ Source: scope.md > Inspiration & Identity; What "Working" Looks Like.
 - Text and vector content remain sharp after zoom rendering settles; image detail remains limited by the source PDF.
 - Support laptop touchpad pinch zoom within the document, toolbar plus/minus, and visible current percentage.
 - Ctrl+0 resets document zoom to 100%; Fit width and Fit page provide separate fitting actions.
+- New PDF tabs start at 100% zoom, as requested during hands-on testing.
 - Continuous vertical scrolling works in one-page and two-page layouts. Two-page layout displays consecutive pages side by side, with an unpaired final page still readable.
 
 Acceptance: pinch and use buttons to change document scale, confirm percentage updates and sharp rendering, reset to 100%, and switch layouts while retaining access to every page.

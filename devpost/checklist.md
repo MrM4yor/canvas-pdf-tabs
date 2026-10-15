@@ -7,9 +7,9 @@ status: approved
 
 Build mode: learn
 
-Git: learner approved initialization and slice checkpoints. Existing ignore rules exclude the learner profile and local credentials. Slice 1 is verified and staged, but its commit is pending because Git has no author name/email configured. Ask the learner which identity to use; do not invent one.
+Git: learner approved initialization and slice checkpoints. Existing ignore rules exclude the learner profile and local credentials. Slice 1 committed as 8f59ed9 after learner verification. Project-local author identity configured with learner-provided details.
 
-Current progress: learner confirmed PDFs and foreground/background tabs work from assignments, class home pages and nested Files folders; reported all first-slice tests pass. Dashboard slowdown remains unattributed. Injection is now restricted to course pages, with runtime guards off course pages. Ten focused tests pass. Awaiting dashboard comparison before slice 2.
+Current progress: learner confirmed all reader controls, 100% initial zoom, and corrected search/link overlay alignment. Slice 2 verified; proceeding to themes, intentional Download and recovery. Fourteen automated tests pass.
 
 ## Slices
 
@@ -23,7 +23,7 @@ Current progress: learner confirmed PDFs and foreground/background tabs work fro
   Learner check: Load dist in Chrome Developer mode, refresh signed-in Canvas, normal-click an assignment PDF and Ctrl+click a Files PDF. Navigate Canvas and confirm both documents remain available and Downloads stays unchanged. Report what happened.
   Commit: `Open Canvas PDFs in independent viewer tabs`
 
-- [ ] **2. Read and navigate PDFs with the agreed controls**
+- [x] **2. Read and navigate PDFs with the agreed controls**
   Becomes usable: Sharp zoom, fit modes, page entry/arrows, internal/external links, cross-page search and one/two-page reading layouts.
   Why now: Builds on proven file access and completes the useful reading experience rather than cosmetic scaffolding.
   PRD ref: `prd.md > Zoom and Page Layout`, `prd.md > Page Navigation and PDF Links`, `prd.md > Text Search`, `prd.md > Screens and Layout`
@@ -65,6 +65,8 @@ Reflection: not yet offered; personal responses belong in the ignored learner pr
 Activity mode: not yet established
 
 ## Revisions
+
+- Slice 2 learner check: all reader controls worked, but opening fit-width was inconvenient and search/link overlays were offset. Changed initial scale to 100% and scoped our border-box CSS to interface controls; the global rule was shrinking PDF.js page canvases relative to their overlay coordinate system. Awaiting confirmation of overlay alignment before committing slice 2.
 
 - Learner confirmed slice 1 works on live Canvas. Per request, restricted injection to /courses/* and made existing listeners inert off course pages to isolate dashboard slowdown. Cause of slowdown remains unverified.
 

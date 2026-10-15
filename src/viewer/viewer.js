@@ -1,23 +1,31 @@
 import * as pdfjsLib from '../../vendor/pdfjs/build/pdf.mjs';
-import { PDFViewer, EventBus, PDFLinkService } from '../../vendor/pdfjs/web/pdf_viewer.mjs';
+import { PDFViewer, EventBus, PDFLinkService, PDFFindController } from '../../vendor/pdfjs/web/pdf_viewer.mjs';
 import { loadCanvasPdf } from '../file-loader.js';
+import { wireReaderControls } from './reader-controls.js';
 
 pdfjsLib.GlobalWorkerOptions.workerSrc = chrome.runtime.getURL('vendor/pdfjs/build/pdf.worker.mjs');
 const eventBus = new EventBus();
 const linkService = new PDFLinkService({ eventBus, externalLinkTarget: 2, externalLinkRel: 'noopener noreferrer nofollow' });
-const viewer = new PDFViewer({ container: document.getElementById('viewerContainer'), eventBus, linkService });
+const findController = new PDFFindController({ eventBus, linkService });
+const container = document.getElementById('viewerContainer');
+const viewer = new PDFViewer({ container, eventBus, linkService, findController, annotationEditorMode: pdfjsLib.AnnotationEditorType.DISABLE, annotationMode: pdfjsLib.AnnotationMode.ENABLE });
 linkService.setViewer(viewer);
+const controls = wireReaderControls({ viewer, eventBus, container });
 const requestId = new URL(location.href).searchParams.get('request');
 const status = document.getElementById('status');
 let task;
 
-eventBus.on('pagesinit', () => { viewer.currentScaleValue = 'page-width'; });
+eventBus.on('pagesinit', () => { viewer.currentScale = 1; });
 eventBus.on('pagerendered', () => { status.hidden = true; });
 
 async function open() {
   status.hidden = false;
   document.getElementById('error').hidden = true;
   try {
+    controls.setLoading();
+    viewer.setDocument(null);
+    linkService.setDocument(null);
+    findController.setDocument(null);
     await task?.destroy();
     let data;
     if (new URL(location.href).searchParams.has('fixture')) {
@@ -35,9 +43,9 @@ async function open() {
       standardFontDataUrl: chrome.runtime.getURL('vendor/pdfjs/standard_fonts/'),
       wasmUrl: chrome.runtime.getURL('vendor/pdfjs/wasm/') });
     const doc = await task.promise;
-    viewer.setDocument(doc);
     linkService.setDocument(doc);
-    document.getElementById('pageCount').textContent = `${doc.numPages} pages`;
+    findController.setDocument(doc);
+    viewer.setDocument(doc);
   } catch (error) {
     status.hidden = true;
     document.getElementById('errorText').textContent = error.name === 'TimeoutError' ? 'The request timed out. Retry or return to Canvas.' : error.message;

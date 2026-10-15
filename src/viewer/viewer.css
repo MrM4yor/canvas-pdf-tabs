@@ -10,3 +10,25 @@ header { height: 52px; box-sizing: border-box; display: flex; align-items: cente
 button { font: inherit; cursor: pointer; padding: 9px 16px; border: 1px solid #777f8e; border-radius: 6px; background: #464b55; color: white; }
 button:hover { background: #596171; }
 [hidden] { display: none !important; }
+/* Scope interface sizing to our controls. PDF.js pages need their own content-box geometry. */
+header, header *, #findBar, #findBar *, #layoutControls, #layoutControls *, #error, #error * { box-sizing: border-box; }
+:root { color-scheme: dark; }
+header { height: 56px; gap: 18px; }
+#viewerContainer { top: 56px; padding-bottom: 64px; overscroll-behavior: contain; }
+#filename { min-width: 90px; font-weight: 550; }
+fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
+#readingControls { display: flex; align-items: center; gap: 7px; }
+button, select, input { font: inherit; font-size: 13px; border: 1px solid #5a606b; border-radius: 5px; background: #3b4049; color: #f5f6f8; }
+button { min-width: 32px; min-height: 32px; padding: 5px 10px; }
+button:disabled { opacity: .4; cursor: default; }
+button[aria-pressed="true"] { background: #576b8a; border-color: #a5bada; }
+:focus-visible { outline: 2px solid #a9caff; outline-offset: 2px; }
+select { padding: 6px; }
+#pageNumber { width: 48px; height: 32px; text-align: center; }
+#zoomPercent { min-width: 50px; text-align: center; font-size: 13px; }
+.divider { border-left: 1px solid #5a606b; height: 25px; margin: 0 7px; }
+#findBar { position: fixed; top: 64px; right: 16px; z-index: 30; display: flex; align-items: center; gap: 8px; background: #34373d; border: 1px solid #656c78; padding: 10px; border-radius: 8px; box-shadow: 0 6px 24px #0006; }
+#findInput { width: 220px; padding: 8px; }
+#findCount { min-width: 75px; font-size: 12px; }
+#layoutControls { position: fixed; right: 18px; bottom: 16px; z-index: 25; display: flex; gap: 5px; padding: 5px; background: #34373df5; border: 1px solid #5a606b; border-radius: 8px; }
+@media (max-width: 850px) { header { gap: 8px; padding: 0 8px; } #readingControls { gap: 4px; } #fitMode { max-width: 90px; } }
