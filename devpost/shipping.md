@@ -2,7 +2,7 @@
 
 Repository: https://github.com/MrM4yor/canvas-pdf-tabs
 
-Release: https://github.com/MrM4yor/canvas-pdf-tabs/releases/tag/v0.1.0 . Repository, planning documents, MIT license, privacy page and release ZIP were verified over unauthenticated HTTPS on October 15, 2026. Download SHA-256: `3ad0c04e26813850dac543b6e6729524aea516a4f4a100a4ae527103f3151ca1`.
+Release: https://github.com/MrM4yor/canvas-pdf-tabs/releases/tag/v0.1.0 . Repository, planning documents, MIT license, privacy page and release ZIP were verified over unauthenticated HTTPS on October 15, 2026. Download SHA-256: `4ba8239f612644e8ac4742c920a86b8dc3dcba082654c653e5a989a4326360ac`.
 
 Demo video: recorded by the maintainer and edited locally to 2:06.5; public upload/link verification pending. Store developer registration: maintainer reports completed October 15, 2026. Store listing: not submitted yet. Devpost: not submitted.
 
@@ -44,4 +44,7 @@ Store documentation: https://developer.chrome.com/docs/webstore/register/ ; http
 - [ ] Submitted by the learner or with explicit authorization.
 
 Store publication is optional and does not replace the video. The learner writes the public submission answers and narration; agent help is limited to technical mechanics and spelling/grammar corrections to learner-written copy.
+
+
+Packaging correction: Web Store rejected ./manifest.json. Package root entries are now explicit, with exact manifest.json checked before release. Corrected ZIP verified with declared manifest files and full CRC checks.
 
