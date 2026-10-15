@@ -97,4 +97,3 @@ Activity mode: concise recap of actual build evidence plus offline reference map
 - Learner confirmed slice 1 works on live Canvas. Per request, restricted injection to /courses/* and made existing listeners inert off course pages to isolate dashboard slowdown. Cause of slowdown remains unverified.
 
 - First learner test confirmed assignment/home-page foreground and background tab opening, but the reader remained on Loading and Files-folder links bypassed it. Fixed a PDF.js integration error (the container must be a DIV), added guarded startup error reporting, and expanded file-preview parsing to folder paths. Replaced whole-page mutation scanning with link-local hover/focus checks to eliminate unnecessary dashboard scans and prefetches. Nine tests now cover the loader, contracts, actual folder-click handler, no startup scans, and required viewer markup; live retry remains pending.
-

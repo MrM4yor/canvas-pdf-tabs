@@ -191,3 +191,9 @@ src/viewer/annotations-ui.js owns Note settings / All annotations tabs, compact 
 ### Uniform Highlight Painting and Nonintrusive Sidebar
 
 Render all normalized rectangles of one highlight in one SVG path with nonzero fill and one fill-opacity, avoiding repeated alpha compositing from nested browser selection rectangles. Applies at display time to existing saved records without rewriting data. Keep note overlays separate. The raster regression test samples pixels in duplicate-overlap and single-covered areas and requires equal colors. All annotations opens once after document initialization; annotation creation and note focus do not call setSidebar or change tabs. The name editor is moved outside the sidebar into a floating field, closed by Enter/Escape. Table rows have five cells, with no numbering column.
+
+### Release and sharing
+
+Public source: https://github.com/MrM4yor/canvas-pdf-tabs . User authorized public history and MIT license under Alon Meir. Private learner profile, build outputs and local work are excluded. `devpost/shipping.md` tracks demo video and optional Chrome Web Store status; neither is submitted yet. `PRIVACY.md` describes actual local data and Canvas network requests. `npm run package` builds a fresh Windows ZIP staging tree from source and pinned PDF.js, refusing to overwrite an existing release ZIP. Manifest icons are original code-drawn assets under assets/.
+
+Sidebar highlight navigation converts the normalized bounding-box center to PDF coordinates using the current viewport, then uses PDF.js XYZ destination with center:'both' and ignoreDestinationZoom:true. This targets the saved highlight even when its page has not rendered and preserves the reader zoom.

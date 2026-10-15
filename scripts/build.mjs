@@ -3,7 +3,7 @@ import { resolve } from 'node:path';
 const root = resolve(import.meta.dirname, '..');
 const target = resolve(root, 'dist');
 await mkdir(target, { recursive: true });
-for (const name of ['manifest.json', 'src', 'tests/fixtures']) {
+for (const name of ['manifest.json', 'src', 'assets', 'tests/fixtures', 'LICENSE', 'THIRD_PARTY_NOTICES.md', 'PRIVACY.md']) {
   await cp(resolve(root, name), resolve(target, name), { recursive: true });
 }
 for (const name of ['build', 'web', 'cmaps', 'standard_fonts', 'wasm', 'LICENSE']) {
